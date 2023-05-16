@@ -1,2 +1,35 @@
-- create a new Add-In using the smart alert instructions
-- update webpack to ensure the new file "launchevent.js" transpiled via being an entry rather than just coming the file directly into the dist folder
+- create a new Add-In using the smart alert instructions (https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/smart-alerts-onmessagesend-walkthrough?tabs=xmlmanifest)
+
+- update webpack to ensure the new file "launchevent.js" is transpiled via being an entry option
+  entry: {
+      .....
+      launchevent: "./src/launchevent/launchevent.js",
+    },
+  output: {
+      clean: true,
+      filename: "[name].js",
+      path: path.resolve(__dirname, "dist"),
+    },
+
+- delete the entry to copy over the launchevent.js directly into dest folder
+  new CopyWebpackPlugin({
+  patterns: [
+      {
+        from: "./src/launchevent/launchevent.js",
+        to: "launchevent.js",
+      },
+    ],
+  }),
+
+- add the launchevent.js chunk to command.html file
+  plugins: [
+      ....
+      new HtmlWebpackPlugin({
+        filename: "commands.html",
+        template: "./src/commands/commands.html",
+        chunks: ["polyfill", "commands", "launchevent"],
+      }),
+  ]
+
+- remove the script tag added to the command.html file (<script type="text/javascript" src="../launchevent/launchevent.js"></script>).
+  This would be injected by webpack
