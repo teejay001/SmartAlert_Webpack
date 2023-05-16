@@ -1,0 +1,2 @@
+- create a new Add-In using the smart alert instructions
+- update webpack to ensure the new file "launchevent.js" transpiled via being an entry rather than just coming the file directly into the dist folder
