@@ -33,3 +33,7 @@
 
 - remove the script tag added to the command.html file (<script type="text/javascript" src="../launchevent/launchevent.js"></script>).
   This would be injected by webpack
+
+- npm run build
+
+- npm start
